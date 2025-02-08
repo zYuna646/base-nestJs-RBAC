@@ -11,13 +11,18 @@ import { BaseService } from './base.service';
 import { Document } from 'mongoose';
 import { Permission } from '../decorators/permissions.decorator';
 
+interface BaseDTO {
+  createDto: any;
+  updateDto: any;
+}
+
 @Controller()
-export abstract class BaseController<T extends Document> {
+export abstract class BaseController<T extends Document, DTO extends BaseDTO> {
   constructor(private readonly baseService: BaseService<T>) {}
 
   @Post()
   @Permission('POST')
-  async create(@Body() createDto: any): Promise<T> {
+  async create(@Body() createDto: DTO['createDto']): Promise<T> {
     return this.baseService.create(createDto);
   }
 
@@ -35,7 +40,10 @@ export abstract class BaseController<T extends Document> {
 
   @Put(':id')
   @Permission('PUT')
-  async update(@Param('id') id: string, @Body() updateDto: any): Promise<T> {
+  async update(
+    @Param('id') id: string,
+    @Body() updateDto: DTO['updateDto'],
+  ): Promise<T> {
     return this.baseService.update(id, updateDto);
   }
 

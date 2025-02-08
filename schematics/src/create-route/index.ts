@@ -7,26 +7,34 @@ import {
   template,
   move,
   mergeWith,
-  applyTemplates,
+  chain,
 } from '@angular-devkit/schematics';
 import { strings } from '@angular-devkit/core';
 import * as path from 'path';
 
 export function createRoute(options: any): Rule {
   return (_tree: Tree, _context: SchematicContext) => {
-    const templateSource = apply(url('./files'), [
+    const targetPath = path.join('src', strings.dasherize(options.name));
+
+    const routeTemplateSource = apply(url('./files/route'), [
       template({
         ...options,
         ...strings,
       }),
-      applyTemplates({
-        classify: strings.classify,
-        dasherize: strings.dasherize,
-        name: options.name,
-      }),
-      move(path.join('src', strings.dasherize(options.name))),
+      move(targetPath),
     ]);
 
-    return mergeWith(templateSource);
+    const dtoTemplateSource = apply(url('./files/dto'), [
+      template({
+        ...options,
+        ...strings,
+      }),
+      move(path.join(targetPath, 'dto')),
+    ]);
+
+    return chain([
+      mergeWith(routeTemplateSource),
+      mergeWith(dtoTemplateSource),
+    ]);
   };
 }
