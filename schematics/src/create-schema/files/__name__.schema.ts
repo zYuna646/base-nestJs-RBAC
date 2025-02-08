@@ -2,31 +2,29 @@ import { BaseSchema } from 'src/common/base/base.schema';
 import { Document } from 'mongoose';
 import slugify from 'slugify';
 
-const RoleSchemaDefinition = {
+const __name__SchemaDefinition = {
   name: { type: String, required: true },
   slug: { type: String, default: '' },
-  permissions: { type: [String], default: [] },
 };
 
 const PopulateDefinition = {};
 
-export const RoleSchema = new BaseSchema(
-  RoleSchemaDefinition,
+export const __name__Schema = new BaseSchema(
+  __name__SchemaDefinition,
   PopulateDefinition,
 );
 
-RoleSchema.pre('save', function (next) {
+__name__Schema.pre('save', function (next) {
   if (this.isModified('name')) {
     this.slug = slugify(this.name as string, { lower: true, strict: true });
   }
-  this.updateAt = new Date();
+  this.updatedAt = new Date();
   next();
 });
 
-export interface Role extends Document {
+export interface __name__ extends Document {
   name: string;
   slug: string;
-  permissions: [string];
   createdAt: Date;
   updatedAt: Date;
 }

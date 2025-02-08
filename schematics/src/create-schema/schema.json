@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id": "CreateSchema",
+    "title": "Create Mongoose Schema",
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "The name of the schema"
+      }
+    },
+    "required": ["name"]
+  }
+  
