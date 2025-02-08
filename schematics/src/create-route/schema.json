@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "CreateRoute",
+  "title": "Create Route",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the route"
+    },
+    "model": {
+      "type": "string",
+      "description": "The model to be used in the route"
+    }
+  },
+  "required": ["name", "model"]
+}

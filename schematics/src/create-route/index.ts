@@ -12,7 +12,7 @@ import {
 import { strings } from '@angular-devkit/core';
 import * as path from 'path';
 
-export function createSchema(options: any): Rule {
+export function createRoute(options: any): Rule {
   return (_tree: Tree, _context: SchematicContext) => {
     const templateSource = apply(url('./files'), [
       template({
@@ -24,7 +24,7 @@ export function createSchema(options: any): Rule {
         dasherize: strings.dasherize,
         name: options.name,
       }),
-      move(path.join('src', 'common', 'schemas')),
+      move(path.join('src', strings.dasherize(options.name))),
     ]);
 
     return mergeWith(templateSource);

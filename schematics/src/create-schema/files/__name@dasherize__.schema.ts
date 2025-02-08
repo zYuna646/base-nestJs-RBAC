@@ -2,19 +2,19 @@ import { BaseSchema } from 'src/common/base/base.schema';
 import { Document } from 'mongoose';
 import slugify from 'slugify';
 
-const __name__SchemaDefinition = {
+const <%= classify(name) %>SchemaDefinition = {
   name: { type: String, required: true },
   slug: { type: String, default: '' },
 };
 
 const PopulateDefinition = {};
 
-export const __name__Schema = new BaseSchema(
-  __name__SchemaDefinition,
+export const <%= classify(name) %>Schema = new BaseSchema(
+  <%= classify(name) %>SchemaDefinition,
   PopulateDefinition,
 );
 
-__name__Schema.pre('save', function (next) {
+<%= classify(name) %>Schema.pre('save', function (next) {
   if (this.isModified('name')) {
     this.slug = slugify(this.name as string, { lower: true, strict: true });
   }
@@ -22,7 +22,7 @@ __name__Schema.pre('save', function (next) {
   next();
 });
 
-export interface __name__ extends Document {
+export interface <%= classify(name) %> extends Document {
   name: string;
   slug: string;
   createdAt: Date;
