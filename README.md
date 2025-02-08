@@ -85,6 +85,9 @@ $ npm run build:schematics
 # Generate A Schema
 $ npm run schematics:schema -- --name=YourSchemaName
 
+# Generate A Route
+$ npm run schematics:schema -- --name=YourRouteName --model=YourModelName
+
 ```
 
 ## Stay in touch
