@@ -12,9 +12,9 @@ import { PermissionsGuard } from './common/guards/permissions/permissions.guard'
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env.local',
+      envFilePath: '.env',
     }),
-    MongooseModule.forRoot(process.env.MONGGODB_URI),
+    MongooseModule.forRoot(process.env.MONGODB_URI),
     RoleModule,
     UserModule,
     AuthModule,
