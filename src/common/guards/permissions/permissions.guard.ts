@@ -23,6 +23,10 @@ export class PermissionsGuard implements CanActivate {
 
     const user: any = await this.userService.findById(request.user.userId);
 
+    if (user?.role?.permissions?.includes('*')) {
+      return true;
+    }
+
     const resource = context
       .getClass()
       .name.replace('Controller', '')
