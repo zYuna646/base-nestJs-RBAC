@@ -20,12 +20,6 @@ import { PermissionsGuard } from './common/guards/permissions/permissions.guard'
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-    {
-      provide: APP_GUARD,
-      useClass: PermissionsGuard,
-    },
-  ],
+  providers: [AppService],
 })
 export class AppModule {}
