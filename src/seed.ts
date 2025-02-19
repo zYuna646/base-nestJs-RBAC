@@ -22,7 +22,6 @@ async function bootstrap() {
       permissions: ['*'],
     });
 
-
     await User.create({
       name: process.env.ADMIN_NAME,
       email: process.env.ADMIN_EMAIL,
