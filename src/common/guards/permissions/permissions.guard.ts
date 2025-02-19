@@ -4,10 +4,7 @@ import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class PermissionsGuard implements CanActivate {
-  constructor(
-    private reflector: Reflector,
-    private userService: UserService,
-  ) {}
+  constructor(private reflector: Reflector) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const requiredPermission = this.reflector.get<string>(
@@ -19,11 +16,9 @@ export class PermissionsGuard implements CanActivate {
     }
 
     const request = context.switchToHttp().getRequest();
-    console.log(request);
 
-    const user: any = await this.userService.findById(request.user.userId);
-
-    if (user?.role?.permissions?.includes('*')) {
+    const permissions = request.user.role.permissions;
+    if (permissions.includes('*')) {
       return true;
     }
 
@@ -33,6 +28,6 @@ export class PermissionsGuard implements CanActivate {
       .toUpperCase();
     const permission = `${requiredPermission} ${resource}`;
 
-    return user?.role?.permissions?.includes(permission);
+    return permissions.includes(permission);
   }
 }

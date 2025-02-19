@@ -15,6 +15,7 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt'))
   @Get('validate')
   async validate(@Request() req) {
+    console.log(req.user);
     return this.authService.getUserById(req.user.userId);
   }
 }

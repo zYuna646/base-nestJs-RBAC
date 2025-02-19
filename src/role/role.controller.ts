@@ -12,7 +12,6 @@ interface DTO {
   createDto: CreateDto;
   updateDto: UpdateDto;
 }
-
 @Controller('role')
 export class RoleController extends BaseController<Role, DTO> {
   constructor(protected readonly roleService: RoleService) {

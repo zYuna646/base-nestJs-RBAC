@@ -11,16 +11,16 @@ export class AuthService {
 
   async validateUser(email: string, password: string): Promise<any> {
     const user = await this.usersService.findByEmail(email);
-    console.log(user);
     if (user && (await user.comparePassword(password))) {
-      const { password, ...result } = user.toJSON(); // Use toJSON to exclude the password
+      const { password, ...result } = user.toJSON();
+      console.log(result);
       return result;
     }
     return null;
   }
 
   async login(user: any) {
-    const payload = { email: user.email, sub: user._id };
+    const payload = { email: user.email, sub: user._id, role: user.role };
     return {
       access_token: this.jwtService.sign(payload),
     };
