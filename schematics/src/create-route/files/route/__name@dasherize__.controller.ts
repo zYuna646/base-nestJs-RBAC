@@ -47,8 +47,7 @@ export class <%= classify(name) %>Controller extends BaseController<<%= classify
   })
   @Permission('POST')
   async create(@Body() createDto: CreateDto<%= classify(model) %>): Promise<BaseResponse<<%= classify(model) %>>> {
-    const result = await this.<%= dasherize(name) %>Service.create(createDto);
-    return new BaseResponse(result);
+    return this.<%= dasherize(name) %>Service.create(createDto);
   }
 
   @UseGuards(AuthGuard('jwt'), PermissionsGuard)
@@ -71,8 +70,7 @@ export class <%= classify(name) %>Controller extends BaseController<<%= classify
   })
   @Permission('GET')
   async findAll(): Promise<BaseResponse<<%= classify(model) %>[]>> {
-    const result = await this.<%= dasherize(name) %>Service.findAll();
-    return new BaseResponse(result);
+    return this.<%= dasherize(name) %>Service.findAll();
   }
 
   @UseGuards(AuthGuard('jwt'), PermissionsGuard)
@@ -96,8 +94,7 @@ export class <%= classify(name) %>Controller extends BaseController<<%= classify
   })
   @Permission('GET')
   async findById(@Param('id') id: string): Promise<BaseResponse<<%= classify(model) %>>> {
-    const result = await this.<%= dasherize(name) %>Service.findById(id);
-    return new BaseResponse(result);
+    return this.<%= dasherize(name) %>Service.findById(id);
   }
 
   @UseGuards(AuthGuard('jwt'), PermissionsGuard)
@@ -130,8 +127,7 @@ export class <%= classify(name) %>Controller extends BaseController<<%= classify
     @Param('id') id: string,
     @Body() updateDto: UpdateDto<%= classify(model) %>,
   ): Promise<BaseResponse<<%= classify(model) %>>> {
-    const result = await this.<%= dasherize(name) %>Service.update(id, updateDto);
-    return new BaseResponse(result);
+    return this.<%= dasherize(name) %>Service.update(id, updateDto);
   }
 
   @UseGuards(AuthGuard('jwt'), PermissionsGuard)
@@ -155,7 +151,6 @@ export class <%= classify(name) %>Controller extends BaseController<<%= classify
   })
   @Permission('DELETE')
   async softDelete(@Param('id') id: string): Promise<BaseResponse<<%= classify(model) %>>> {
-    const result = await this.<%= dasherize(name) %>Service.delete(id);
-    return new BaseResponse(result);
+    return this.<%= dasherize(name) %>Service.delete(id);
   }
 }

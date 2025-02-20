@@ -76,6 +76,7 @@ With Mau, you can deploy your application in just a few clicks, allowing you to 
 ## Run Schematics
 
 ```bash
+$ npm run install:schematics
 $ npm run build:schematics
 ```
 
@@ -86,10 +87,11 @@ $ npm run build:schematics
 $ npm run schematics:schema -- --name=YourSchemaName
 
 # Generate A Route
-$ npm run schematics:schema -- --name=YourRouteName --model=YourModelName
+$ npm run schematics:route -- --name=YourRouteName --model=YourModelName
 
 ```
 
 ## Stay in touch
 
 - Author - [zYuna646](https://github.com/zYuna646)
+- Repository - [zYuna646/base-nestJs-RBAC](https://github.com/zYuna646/base-nestJs-RBAC)
