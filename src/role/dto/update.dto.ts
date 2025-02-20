@@ -1,6 +1,15 @@
-import { IsString, IsNumber, IsOptional } from 'class-validator';
+import { IsString, IsOptional, IsArray } from 'class-validator';
 
-export class UpdateDto {
+export class UpdateDtoRole {
   @IsString()
-  name: string;
+  @IsOptional()
+  name?: string;
+
+  @IsString()
+  @IsOptional()
+  slug?: string;
+
+  @IsArray()
+  @IsOptional()
+  permissions?: string[];
 }

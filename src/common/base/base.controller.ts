@@ -1,63 +1,18 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Put,
-  Delete,
-  UseGuards,
-} from '@nestjs/common';
-import { BaseService } from './base.service';
+import { Controller } from '@nestjs/common';
 import { Document } from 'mongoose';
-import { Permission } from '../decorators/permissions.decorator';
-import { AuthGuard } from '@nestjs/passport';
-import { PermissionsGuard } from '../guards/permissions/permissions.guard';
-
-interface BaseDTO {
-  createDto: any;
-  updateDto: any;
-}
+import { BaseService } from './base.service';
 
 @Controller()
-export abstract class BaseController<T extends Document, DTO extends BaseDTO> {
-  constructor(private readonly baseService: BaseService<T>) {}
+export abstract class BaseController<T extends Document> {
+  constructor(protected readonly baseService: BaseService<T>) {}
 
-  @UseGuards(AuthGuard('jwt'), PermissionsGuard) // Gabungkan dalam satu dekorator
-  @Post()
-  @Permission('POST')
-  async create(@Body() createDto: DTO['createDto']): Promise<T> {
-    return this.baseService.create(createDto);
-  }
+  abstract create(createDto: any): Promise<T>;
 
-  @UseGuards(AuthGuard('jwt'), PermissionsGuard) // Gabungkan dalam satu dekorator
-  @Get()
-  @Permission('GET')
-  async findAll(): Promise<T[]> {
-    return this.baseService.findAll();
-  }
+  abstract findAll(): Promise<T[]>;
 
-  @UseGuards(AuthGuard('jwt'), PermissionsGuard) // Gabungkan dalam satu dekorator
-  @Get(':id')
-  @Permission('GET')
-  async findById(@Param('id') id: string): Promise<T> {
-    return this.baseService.findById(id);
-  }
+  abstract findById(id: string): Promise<T>;
 
-  @UseGuards(AuthGuard('jwt'), PermissionsGuard) // Gabungkan dalam satu dekorator
-  @Put(':id')
-  @Permission('PUT')
-  async update(
-    @Param('id') id: string,
-    @Body() updateDto: DTO['updateDto'],
-  ): Promise<T> {
-    return this.baseService.update(id, updateDto);
-  }
+  abstract update(id: string, updateDto: any): Promise<T>;
 
-  @UseGuards(AuthGuard('jwt'), PermissionsGuard) // Gabungkan dalam satu dekorator
-  @Permission('DELETE')
-  @Delete(':id')
-  async softDelete(@Param('id') id: string): Promise<T> {
-    return this.baseService.delete(id);
-  }
+  abstract softDelete(id: string): Promise<T>;
 }
